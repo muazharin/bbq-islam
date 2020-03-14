@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:alba_ta/pages/materi.dart';
+import 'package:alba_ta/pages/praktek.dart';
+import 'package:alba_ta/pages/quiz.dart';
+import 'package:alba_ta/pages/info.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,13 +12,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        routes: <String, WidgetBuilder>{
+          '/Materi': (BuildContext context) => new Materi(),
+          '/Praktek': (BuildContext context) => new Praktek(),
+          '/Quiz': (BuildContext context) => new Quiz(),
+          '/Info': (BuildContext context) => new Info(),
+        });
   }
 }
 
@@ -95,12 +104,14 @@ Widget _buildTopCard(double width, double height) {
   );
 }
 
-Widget _buildMenuCard(String text, double width) {
+Widget _buildMenuCard(String text, double width, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Card(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, '/' + text);
+        },
         child: Container(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -168,10 +179,10 @@ class _AfterSplashState extends State<AfterSplash> {
             child: GridView.count(
               crossAxisCount: 2,
               children: <Widget>[
-                _buildMenuCard(materi, width),
-                _buildMenuCard(praktek, width),
-                _buildMenuCard(quiz, width),
-                _buildMenuCard(info, width)
+                _buildMenuCard(materi, width, context),
+                _buildMenuCard(praktek, width, context),
+                _buildMenuCard(quiz, width, context),
+                _buildMenuCard(info, width, context)
               ],
             ),
           ),
