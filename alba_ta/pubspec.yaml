@@ -42,11 +42,44 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/logoku.jpg
-    - assets/image/Materi.png
+    - assets/image/Huruf.png
     - assets/image/Praktek.png
     - assets/image/Quiz.png
     - assets/image/Info.png
     - assets/image/istanbul.png
+    - assets/huruf/ا.png
+    - assets/huruf/ب.png
+    - assets/huruf/ت.png
+    - assets/huruf/ث.png
+    - assets/huruf/ج.png
+    - assets/huruf/ح.png
+    - assets/huruf/خ.png
+    - assets/huruf/د.png
+    - assets/huruf/ذ.png
+    - assets/huruf/ر.png
+    - assets/huruf/ز.png
+    - assets/huruf/س.png
+    - assets/huruf/ش.png
+    - assets/huruf/ص.png
+    - assets/huruf/ض.png
+    - assets/huruf/ط.png
+    - assets/huruf/ظ.png
+    - assets/huruf/ع.png
+    - assets/huruf/غ.png
+    - assets/huruf/ف.png
+    - assets/huruf/ق.png
+    - assets/huruf/ك.png
+    - assets/huruf/ل.png
+    - assets/huruf/لا.png
+    - assets/huruf/م.png
+    - assets/huruf/ن.png
+    - assets/huruf/ه.png
+    - assets/huruf/و.png
+    - assets/huruf/ي.png
+    - assets/huruf/dhomahtain.png
+    - assets/huruf/dhommah.png
+    - assets/huruf/fathah.png
+    - assets/huruf/fathahtain.png
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
