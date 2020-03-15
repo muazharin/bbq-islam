@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Materi extends StatefulWidget {
+class Huruf extends StatefulWidget {
   @override
-  _MateriState createState() => _MateriState();
+  _HurufState createState() => _HurufState();
 }
 
-class _MateriState extends State<Materi> {
+class _HurufState extends State<Huruf> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Materi'),
+        child: Text('Huruf'),
       ),
     );
   }

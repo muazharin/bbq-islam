@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:alba_ta/pages/materi.dart';
+import 'package:alba_ta/pages/huruf.dart';
 import 'package:alba_ta/pages/praktek.dart';
 import 'package:alba_ta/pages/quiz.dart';
 import 'package:alba_ta/pages/info.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
         routes: <String, WidgetBuilder>{
-          '/Materi': (BuildContext context) => new Materi(),
+          '/Huruf': (BuildContext context) => new Huruf(),
           '/Praktek': (BuildContext context) => new Praktek(),
           '/Quiz': (BuildContext context) => new Quiz(),
           '/Info': (BuildContext context) => new Info(),
@@ -138,7 +138,7 @@ class _AfterSplashState extends State<AfterSplash> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    String materi = 'Materi';
+    String materi = 'Huruf';
     String praktek = 'Praktek';
     String quiz = 'Quiz';
     String info = 'Info';
