@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:alba_ta/pages/huruf_detail.dart';
 
 class Huruf extends StatefulWidget {
   @override
@@ -12,8 +13,8 @@ Widget _appBar(double width, double height, BuildContext context) {
     decoration: BoxDecoration(
         color: Color(0xFF00a5b3),
         image: DecorationImage(
-            image: ExactAssetImage('assets/image/masjidilharom.jpeg'),
-            fit: BoxFit.fill)),
+            image: ExactAssetImage('assets/image/bcislam.jpg'),
+            fit: BoxFit.cover)),
     child: Padding(
       padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
@@ -33,7 +34,10 @@ Widget _appBar(double width, double height, BuildContext context) {
                 child: Center(
                   child: Text(
                     'Huruf',
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               )
@@ -50,22 +54,25 @@ Widget _appBar(double width, double height, BuildContext context) {
   );
 }
 
-Widget _hurufHijayah(String text, double width, double height) {
+Widget _hurufHijayah(
+    String text, double width, double height, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(8),
     child: Card(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => HurufDetail(text)));
+        },
         child: Container(
           child: Padding(
             padding: const EdgeInsets.all(4),
             child: Column(
               children: <Widget>[
                 Center(
-                  child: Image.asset(
-                    'assets/huruf/' + text + '.png',
-                    // width: width,
-                    height: height / 20,
+                  child: Text(
+                    text,
+                    style: TextStyle(fontSize: width / 15),
                   ),
                 )
               ],
@@ -77,13 +84,16 @@ Widget _hurufHijayah(String text, double width, double height) {
   );
 }
 
-Widget _menuHuruf(double width, double height) {
+Widget _menuHuruf(double width, double height, BuildContext context) {
   return Container(
     width: width,
-    height: height / 1.4,
+    height: height / 1.35,
     decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(64))),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(72),
+          //  topRight: Radius.circular(72)
+        )),
     child: Padding(
       padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
@@ -94,35 +104,35 @@ Widget _menuHuruf(double width, double height) {
               child: GridView.count(
                 crossAxisCount: 4,
                 children: <Widget>[
-                  _hurufHijayah('ث', width, height),
-                  _hurufHijayah('ت', width, height),
-                  _hurufHijayah('ب', width, height),
-                  _hurufHijayah('ا', width, height),
-                  _hurufHijayah('د', width, height),
-                  _hurufHijayah('خ', width, height),
-                  _hurufHijayah('ح', width, height),
-                  _hurufHijayah('ج', width, height),
-                  _hurufHijayah('س', width, height),
-                  _hurufHijayah('ز', width, height),
-                  _hurufHijayah('ر', width, height),
-                  _hurufHijayah('ذ', width, height),
-                  _hurufHijayah('ط', width, height),
-                  _hurufHijayah('ض', width, height),
-                  _hurufHijayah('ص', width, height),
-                  _hurufHijayah('ش', width, height),
-                  _hurufHijayah('ف', width, height),
-                  _hurufHijayah('غ', width, height),
-                  _hurufHijayah('ع', width, height),
-                  _hurufHijayah('ظ', width, height),
-                  _hurufHijayah('لا', width, height),
-                  _hurufHijayah('ل', width, height),
-                  _hurufHijayah('ك', width, height),
-                  _hurufHijayah('ق', width, height),
-                  _hurufHijayah('ه', width, height),
-                  _hurufHijayah('و', width, height),
-                  _hurufHijayah('ن', width, height),
-                  _hurufHijayah('م', width, height),
-                  _hurufHijayah('ي', width, height),
+                  _hurufHijayah('ث', width, height, context),
+                  _hurufHijayah('ت', width, height, context),
+                  _hurufHijayah('ب', width, height, context),
+                  _hurufHijayah('ا', width, height, context),
+                  _hurufHijayah('د', width, height, context),
+                  _hurufHijayah('خ', width, height, context),
+                  _hurufHijayah('ح', width, height, context),
+                  _hurufHijayah('ج', width, height, context),
+                  _hurufHijayah('س', width, height, context),
+                  _hurufHijayah('ز', width, height, context),
+                  _hurufHijayah('ر', width, height, context),
+                  _hurufHijayah('ذ', width, height, context),
+                  _hurufHijayah('ط', width, height, context),
+                  _hurufHijayah('ض', width, height, context),
+                  _hurufHijayah('ص', width, height, context),
+                  _hurufHijayah('ش', width, height, context),
+                  _hurufHijayah('ف', width, height, context),
+                  _hurufHijayah('غ', width, height, context),
+                  _hurufHijayah('ع', width, height, context),
+                  _hurufHijayah('ظ', width, height, context),
+                  _hurufHijayah('لا', width, height, context),
+                  _hurufHijayah('ل', width, height, context),
+                  _hurufHijayah('ك', width, height, context),
+                  _hurufHijayah('ق', width, height, context),
+                  _hurufHijayah('ه', width, height, context),
+                  _hurufHijayah('و', width, height, context),
+                  _hurufHijayah('ن', width, height, context),
+                  _hurufHijayah('م', width, height, context),
+                  _hurufHijayah('ي', width, height, context),
                 ],
               ),
             ),
@@ -145,7 +155,7 @@ class _HurufState extends State<Huruf> {
             _appBar(width, height, context),
             Align(
               alignment: Alignment.bottomCenter,
-              child: _menuHuruf(width, height),
+              child: _menuHuruf(width, height, context),
             )
           ],
         ),
