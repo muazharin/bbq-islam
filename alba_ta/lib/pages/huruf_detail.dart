@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayer/audioplayer.dart';
+import 'package:alba_ta/pages/audio_provider.dart';
 
 class HurufDetail extends StatefulWidget {
   final String huruf;
-  HurufDetail(this.huruf);
+  final String a;
+  final String b;
+  final String c;
+  final String d;
+  final String e;
+  final String f;
+  final String g;
+
+  HurufDetail(
+      this.huruf, this.a, this.b, this.c, this.d, this.e, this.f, this.g);
   @override
-  _HurufDetailState createState() => _HurufDetailState(this.huruf);
+  _HurufDetailState createState() => _HurufDetailState(
+      this.huruf, this.a, this.b, this.c, this.d, this.e, this.f, this.g);
+}
+
+Widget _text(String text) {
+  return Text(text, style: TextStyle(color: Colors.white));
 }
 
 Widget _backGr(double width, double height, BuildContext context) {
@@ -21,31 +37,78 @@ Widget _backGr(double width, double height, BuildContext context) {
       child: Column(
         children: <Widget>[
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Bimbingan Belajar Qur\'an',
-              style: TextStyle(fontSize: width / 15, color: Colors.white),
-            ),
-          )
+          Row(
+            children: <Widget>[
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Row(
+                    children: <Widget>[
+                      _text('Copyright '),
+                      Icon(
+                        Icons.copyright,
+                        color: Colors.white,
+                      ),
+                      _text(' 2020 by '),
+                      _text('Muaz_Dev '),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer()
+            ],
+          ),
         ],
       ),
     ),
   );
 }
 
+Widget _visible(_visO, String text, double width) {
+  return Visibility(
+    visible: _visO,
+    child: Image.asset(text, width: width / 8),
+  );
+}
+
 class _HurufDetailState extends State<HurufDetail> {
+  Widget _row(String text, VoidCallback onpressed) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: RaisedButton(
+          onPressed: onpressed,
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.white),
+          ),
+          color: Color(0xFF00a5b3),
+        ),
+      ),
+    );
+  }
+
   final String text;
-  _HurufDetailState(this.text);
+  final String a;
+  final String b;
+  final String c;
+  final String d;
+  final String e;
+  final String f;
+  final String g;
+
+  _HurufDetailState(
+      this.text, this.a, this.b, this.c, this.d, this.e, this.f, this.g);
+
+  AudioPlayer audioPlayer = new AudioPlayer();
+
   bool _visFatah = false;
   bool _visFatahTain = false;
   bool _visKasrah = false;
   bool _visKasrahTain = false;
   bool _visDommah = false;
   bool _visDommahTain = false;
-
-  final String url = "http://rest-api.sidakmorowali.com/audio/fatah_a.mp3";
-  // Audio audio;
   void _vis() {
     setState(() {
       _visFatah = false;
@@ -61,6 +124,7 @@ class _HurufDetailState extends State<HurufDetail> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -93,11 +157,21 @@ class _HurufDetailState extends State<HurufDetail> {
                           color: Color(0xFF00a5b3),
                         ),
                       ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Tanda Baca',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Card(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -108,7 +182,18 @@ class _HurufDetailState extends State<HurufDetail> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
-                                onTap: _vis,
+                                onTap: () {
+                                  // setState(() {
+                                  _vis();
+                                  // });
+                                  setState(() async {
+                                    AudioProvider audioProvider =
+                                        new AudioProvider(a);
+                                    String localUrl =
+                                        await audioProvider.load();
+                                    audioPlayer.play(localUrl, isLocal: true);
+                                  });
+                                },
                                 child: Icon(
                                   Icons.refresh,
                                 ),
@@ -128,41 +213,20 @@ class _HurufDetailState extends State<HurufDetail> {
                         Center(
                           child: Column(
                             children: <Widget>[
-                              Visibility(
-                                visible: _visFatah,
-                                child: Image.asset('assets/huruf/fathah.png',
-                                    width: width / 8),
-                              ),
-                              Visibility(
-                                visible: _visFatahTain,
-                                child: Image.asset(
-                                    'assets/huruf/fathahtain.png',
-                                    width: width / 8),
-                              ),
-                              Visibility(
-                                visible: _visDommah,
-                                child: Image.asset('assets/huruf/dhommah.png',
-                                    width: width / 8),
-                              ),
-                              Visibility(
-                                visible: _visDommahTain,
-                                child: Image.asset(
-                                    'assets/huruf/dhomahtain.png',
-                                    width: width / 8),
-                              ),
+                              _visible(
+                                  _visFatah, 'assets/huruf/fathah.png', width),
+                              _visible(_visFatahTain,
+                                  'assets/huruf/fathahtain.png', width),
+                              _visible(_visDommah, 'assets/huruf/dhommah.png',
+                                  width),
+                              _visible(_visDommahTain,
+                                  'assets/huruf/dhomahtain.png', width),
                               Image.asset('assets/huruf/' + text + ".png",
                                   width: width / 8),
-                              Visibility(
-                                visible: _visKasrah,
-                                child: Image.asset('assets/huruf/fathah.png',
-                                    width: width / 8),
-                              ),
-                              Visibility(
-                                visible: _visKasrahTain,
-                                child: Image.asset(
-                                    'assets/huruf/fathahtain.png',
-                                    width: width / 8),
-                              ),
+                              _visible(
+                                  _visKasrah, 'assets/huruf/fathah.png', width),
+                              _visible(_visKasrahTain,
+                                  'assets/huruf/fathahtain.png', width),
                             ],
                           ),
                         ),
@@ -172,68 +236,92 @@ class _HurufDetailState extends State<HurufDetail> {
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visFatah = true;
-                                            });
-                                          },
-                                          child: Text('Fathah'))),
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visFatahTain = true;
-                                            });
-                                          },
-                                          child: Text('Fathahtain'))),
+                                  _row('Fathah', () {
+                                    setState(() {
+                                      _vis();
+                                      _visFatah = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(b);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
+                                  _row('Fathahtain', () {
+                                    setState(() {
+                                      _vis();
+                                      _visFatahTain = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(e);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
                                 ],
                               ),
                               Row(
                                 children: <Widget>[
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visKasrah = true;
-                                            });
-                                          },
-                                          child: Text('Kasroh'))),
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visKasrahTain = true;
-                                            });
-                                          },
-                                          child: Text('Kasrohtain'))),
+                                  _row('Kasroh', () {
+                                    setState(() {
+                                      _vis();
+                                      _visKasrah = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(c);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
+                                  _row('Kasrohtain', () {
+                                    setState(() {
+                                      _vis();
+                                      _visKasrahTain = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(f);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
                                 ],
                               ),
                               Row(
                                 children: <Widget>[
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visDommah = true;
-                                            });
-                                          },
-                                          child: Text('Dhommah'))),
-                                  Expanded(
-                                      child: FlatButton(
-                                          onPressed: () {
-                                            _vis();
-                                            setState(() {
-                                              _visDommahTain = true;
-                                            });
-                                          },
-                                          child: Text('Dhommahtain'))),
+                                  _row('Dhommah', () {
+                                    setState(() {
+                                      _vis();
+                                      _visDommah = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(d);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
+                                  _row('Dhommahtain', () {
+                                    setState(() {
+                                      _vis();
+                                      _visDommahTain = true;
+                                    });
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(g);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  }),
                                 ],
                               ),
                             ],
