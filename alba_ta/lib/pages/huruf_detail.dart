@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
 import 'package:alba_ta/pages/audio_provider.dart';
+// import 'package:flutter_volume/flutter_volume.dart';
 
 class HurufDetail extends StatefulWidget {
   final String huruf;
@@ -142,197 +143,209 @@ class _HurufDetailState extends State<HurufDetail> {
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(72),
                 )),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Color(0xFF00a5b3),
-                        ),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            'Tanda Baca',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {
-                                  // setState(() {
-                                  _vis();
-                                  // });
-                                  setState(() async {
-                                    AudioProvider audioProvider =
-                                        new AudioProvider(a);
-                                    String localUrl =
-                                        await audioProvider.load();
-                                    audioPlayer.play(localUrl, isLocal: true);
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.refresh,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Icon(
-                                  Icons.volume_up,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Center(
-                          child: Column(
-                            children: <Widget>[
-                              _visible(
-                                  _visFatah, 'assets/huruf/fathah.png', width),
-                              _visible(_visFatahTain,
-                                  'assets/huruf/fathahtain.png', width),
-                              _visible(_visDommah, 'assets/huruf/dhommah.png',
-                                  width),
-                              _visible(_visDommahTain,
-                                  'assets/huruf/dhomahtain.png', width),
-                              Image.asset('assets/huruf/' + text + ".png",
-                                  width: width / 8),
-                              _visible(
-                                  _visKasrah, 'assets/huruf/fathah.png', width),
-                              _visible(_visKasrahTain,
-                                  'assets/huruf/fathahtain.png', width),
-                            ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Color(0xFF00a5b3),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  _row('Fathah', () {
-                                    setState(() {
-                                      _vis();
-                                      _visFatah = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(b);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                  _row('Fathahtain', () {
-                                    setState(() {
-                                      _vis();
-                                      _visFatahTain = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(e);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                ],
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Tanda Baca',
+                              style: TextStyle(
+                                fontSize: 20.0,
                               ),
-                              Row(
-                                children: <Widget>[
-                                  _row('Kasroh', () {
-                                    setState(() {
-                                      _vis();
-                                      _visKasrah = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(c);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                  _row('Kasrohtain', () {
-                                    setState(() {
-                                      _vis();
-                                      _visKasrahTain = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(f);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  _row('Dhommah', () {
-                                    setState(() {
-                                      _vis();
-                                      _visDommah = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(d);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                  _row('Dhommahtain', () {
-                                    setState(() {
-                                      _vis();
-                                      _visDommahTain = true;
-                                    });
-                                    setState(() async {
-                                      AudioProvider audioProvider =
-                                          new AudioProvider(g);
-                                      String localUrl =
-                                          await audioProvider.load();
-                                      audioPlayer.play(localUrl, isLocal: true);
-                                    });
-                                  }),
-                                ],
-                              ),
-                            ],
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: 30.0),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Card(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    _vis();
+                                    setState(() async {
+                                      AudioProvider audioProvider =
+                                          new AudioProvider(a);
+                                      String localUrl =
+                                          await audioProvider.load();
+                                      audioPlayer.play(localUrl, isLocal: true);
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.refresh,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: null,
+                                  child: Icon(
+                                    Icons.volume_up,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                                _visible(_visFatah, 'assets/huruf/fathah.png',
+                                    width),
+                                _visible(_visFatahTain,
+                                    'assets/huruf/fathahtain.png', width),
+                                _visible(_visDommah, 'assets/huruf/dhommah.png',
+                                    width),
+                                _visible(_visDommahTain,
+                                    'assets/huruf/dhomahtain.png', width),
+                                text != 'ء'
+                                    ? Image.asset(
+                                        'assets/huruf/' + text + ".png",
+                                        width: width / 8)
+                                    : Text(
+                                        text,
+                                        style: TextStyle(fontSize: width / 7),
+                                      ),
+                                _visible(_visKasrah, 'assets/huruf/fathah.png',
+                                    width),
+                                _visible(_visKasrahTain,
+                                    'assets/huruf/fathahtain.png', width),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    _row('Fathah', () {
+                                      setState(() {
+                                        _vis();
+                                        _visFatah = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(b);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                    _row('Fathahtain', () {
+                                      setState(() {
+                                        _vis();
+                                        _visFatahTain = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(e);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    _row('Kasroh', () {
+                                      setState(() {
+                                        _vis();
+                                        _visKasrah = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(c);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                    _row('Kasrohtain', () {
+                                      setState(() {
+                                        _vis();
+                                        _visKasrahTain = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(f);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    _row('Dhommah', () {
+                                      setState(() {
+                                        _vis();
+                                        _visDommah = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(d);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                    _row('Dhommahtain', () {
+                                      setState(() {
+                                        _vis();
+                                        _visDommahTain = true;
+                                      });
+                                      setState(() async {
+                                        AudioProvider audioProvider =
+                                            new AudioProvider(g);
+                                        String localUrl =
+                                            await audioProvider.load();
+                                        audioPlayer.play(localUrl,
+                                            isLocal: true);
+                                      });
+                                    }),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                ],
+              ),
             ),
           )
         ],

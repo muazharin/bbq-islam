@@ -153,11 +153,6 @@ class _AfterSplashState extends State<AfterSplash> {
                   child: _buildTopCard(width, height),
                 ),
               ),
-              Image.asset(
-                'assets/image/istanbul.png',
-                width: width / 1.8,
-                color: Colors.grey,
-              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
