@@ -121,12 +121,29 @@ class _HurufDetailState extends State<HurufDetail> {
     });
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  void snackBar() {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text('Untuk mengaktifkan audio, pastikan anda sedang online'),
+      action: SnackBarAction(
+        label: 'Ok',
+        textColor: Colors.white,
+        onPressed: () {
+          _scaffoldKey.currentState.mounted;
+        },
+      ),
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 3),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      key: _scaffoldKey,
       body: SafeArea(
           child: Container(
               child: Stack(
@@ -186,6 +203,7 @@ class _HurufDetailState extends State<HurufDetail> {
                                 child: InkWell(
                                   onTap: () {
                                     _vis();
+                                    snackBar();
                                     setState(() async {
                                       AudioProvider audioProvider =
                                           new AudioProvider(a);
@@ -195,19 +213,10 @@ class _HurufDetailState extends State<HurufDetail> {
                                     });
                                   },
                                   child: Icon(
-                                    Icons.refresh,
+                                    Icons.info_outline,
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: null,
-                                  child: Icon(
-                                    Icons.volume_up,
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                           Center(
