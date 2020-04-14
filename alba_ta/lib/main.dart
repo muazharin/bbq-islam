@@ -5,6 +5,7 @@ import 'package:alba_ta/pages/huruf.dart';
 import 'package:alba_ta/pages/praktek.dart';
 import 'package:alba_ta/pages/quiz.dart';
 import 'package:alba_ta/pages/info.dart';
+import 'package:alba_ta/pages/quotes.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           '/Praktek': (BuildContext context) => new Praktek(),
           '/Quiz': (BuildContext context) => new Quiz(),
           '/Info': (BuildContext context) => new Info(),
+          '/Quotes': (BuildContext context) => new Quotes(),
         });
   }
 }
@@ -41,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-      image: Image.asset('assets/image/logoku.jpg'),
+      // image: Image.asset('assets/image/logoku.jpg'),
       seconds: 3,
       navigateAfterSeconds: new MenuPage(),
       loaderColor: Color(0xFF00a5b3),
