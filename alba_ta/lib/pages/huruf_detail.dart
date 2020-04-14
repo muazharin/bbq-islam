@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
-import 'package:alba_ta/pages/audio_provider.dart';
+import 'package:alba_ta/model/audio_provider.dart';
 // import 'package:flutter_volume/flutter_volume.dart';
 
 class HurufDetail extends StatefulWidget {
@@ -124,7 +124,8 @@ class _HurufDetailState extends State<HurufDetail> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   void snackBar() {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text('Untuk mengaktifkan audio, pastikan anda sedang online'),
+      content:
+          Text('Untuk mendengarkan audio, pastikan jaringan sedang online'),
       action: SnackBarAction(
         label: 'Ok',
         textColor: Colors.white,
@@ -203,7 +204,6 @@ class _HurufDetailState extends State<HurufDetail> {
                                 child: InkWell(
                                   onTap: () {
                                     _vis();
-                                    snackBar();
                                     setState(() async {
                                       AudioProvider audioProvider =
                                           new AudioProvider(a);
@@ -212,6 +212,15 @@ class _HurufDetailState extends State<HurufDetail> {
                                       audioPlayer.play(localUrl, isLocal: true);
                                     });
                                   },
+                                  child: Icon(
+                                    Icons.volume_up,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  onTap: snackBar,
                                   child: Icon(
                                     Icons.info_outline,
                                   ),
