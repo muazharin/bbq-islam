@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:alba_ta/model/form_validation.dart';
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:alba_ta/pages/daftar.dart';
+import 'package:alba_ta/model/baseurl.dart';
+import 'package:alba_ta/model/login_option.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -59,6 +62,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _showAlert(String message) {
+    return AlertDialog(
+      title: Text('Peringatan!'),
+      content: Text(message),
+      actions: <Widget>[
+        FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Ok'))
+      ],
+    );
+  }
+
   Widget _buildLoginCard(
     double width,
     String _username,
@@ -67,6 +84,32 @@ class _LoginPageState extends State<LoginPage> {
     login() async {
       if (_key.currentState.validate()) {
         _key.currentState.save();
+        final response = await http.post(Baseurl.login, body: {
+          'BBQ-KEY': 'cumabuatdaftar',
+          'username': _username,
+          'password': _password
+        });
+        var result = jsonDecode(response.body);
+        bool status = result['status'];
+        int value = result['value'];
+        String message = result['message'];
+        if (status) {
+          String id = result['data'][0]['id_user'];
+          String username = result['data'][0]['username'];
+          String password = result['data'][0]['password'];
+          String email = result['data'][0]['email'];
+          String number = result['data'][0]['number'];
+          String key = result['data'][0]['key'];
+          setState(() {
+            savePref(value, id, username, password, email, number, key);
+            Navigator.popAndPushNamed(context, '/Home');
+          });
+        } else {
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) => _showAlert(message));
+        }
       }
     }
 
@@ -132,6 +175,35 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  savePref(int value, String id, String username, String password, String email,
+      String number, String key) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      sp.setInt('value', value);
+      sp.setString('id', id);
+      sp.setString('username', username);
+      sp.setString('password', password);
+      sp.setString('email', email);
+      sp.setString('number', number);
+      sp.setString('key', key);
+    });
+  }
+
+  var value;
+  getPref() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      value = sp.getInt('value');
+      log = value == 1 ? LoginStatus.isSignIn : LoginStatus.isSignOut;
+    });
+  }
+
+  @override
+  void initState() {
+    getPref();
+    super.initState();
   }
 
   @override

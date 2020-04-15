@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alba_ta/model/login_option.dart';
 import 'package:alba_ta/pages/login.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPage extends StatefulWidget {
   @override
@@ -25,6 +26,26 @@ class _MenuPageState extends State<MenuPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _showAlert(String message) {
+    return AlertDialog(
+      title: Text('Keluar?'),
+      content: Text(message),
+      actions: <Widget>[
+        FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('No')),
+        FlatButton(
+            onPressed: () {
+              logout();
+              Navigator.popAndPushNamed(context, '/Home');
+            },
+            child: Text('Yes'))
+      ],
     );
   }
 
@@ -62,7 +83,13 @@ class _MenuPageState extends State<MenuPage> {
                         },
                         child: _logOpti('assets/image/login.png', 'Login '))
                     : InkWell(
-                        onTap: null,
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) => _showAlert(
+                                  'Apakah Anda yakin ingin keluar?'));
+                        },
                         child: _logOpti('assets/image/logout.png', 'Logout '))
               ],
             ),
@@ -110,6 +137,34 @@ class _MenuPageState extends State<MenuPage> {
         ),
       ),
     );
+  }
+
+  logout() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      sp.setInt('value', null);
+      sp.setString('id', null);
+      sp.setString('username', null);
+      sp.setString('password', null);
+      sp.setString('email', null);
+      sp.setString('number', null);
+      sp.setString('key', null);
+    });
+  }
+
+  var value;
+  getPref() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      value = sp.getInt('value');
+      log = value == 1 ? LoginStatus.isSignIn : LoginStatus.isSignOut;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPref();
   }
 
   @override

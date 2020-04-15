@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
         routes: <String, WidgetBuilder>{
+          '/Home': (BuildContext context) => new MyHomePage(),
           '/Huruf': (BuildContext context) => new Huruf(),
           '/Praktek': (BuildContext context) => new Praktek(),
           '/Quiz': (BuildContext context) => new Quiz(),
