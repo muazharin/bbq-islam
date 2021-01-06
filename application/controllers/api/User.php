@@ -55,4 +55,19 @@ class User extends REST_Controller
             }
         }
     }
+
+    public function image_post()
+    {
+        if ($this->M_user->cekUpdate() > 0) {
+            $this->response([
+                'status' => true,
+                'message' => 'Gambar berhasil diupdate'
+            ], REST_Controller::HTTP_CREATED);
+        } else {
+            $this->response([
+                'status' => false,
+                'message' => 'Gambar gagal diupdate'
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
 }

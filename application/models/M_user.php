@@ -7,7 +7,8 @@ class M_user extends CI_Model
         if ($id === null) {
             return $this->db->get('tb_user')->result_array();
         } else {
-            return $this->db->get('tb_user', ['id_user' => $id])->result_array();
+            $this->db->where('id_user', $id);
+            return $this->db->get('tb_user')->result_array();
         }
     }
     public function createUser()
@@ -18,7 +19,8 @@ class M_user extends CI_Model
             'password' => md5($this->input->post('password')),
             'email' => $this->input->post('email'),
             'number' => $this->input->post('number'),
-            'photo' => 'avatar.png',
+            'gender' => $this->input->post('gender'),
+            'photo' => 'Profil.png',
         ];
         $this->db->insert('tb_user', $data);
         $user_id = $this->db->insert_id();
@@ -39,5 +41,27 @@ class M_user extends CI_Model
         $this->db->where('username', $this->input->post('username'));
         $this->db->get('tb_user');
         return $this->db->affected_rows();
+    }
+
+    public function cekUpdate()
+    {
+        $this->load->library('upload');
+        $id = $this->input->post('id');
+        $config['upload_path'] = './assets/image/profil';
+        $config['overwrite'] = true;
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF';
+        $config['file_name'] = $_FILES['image']['name'];
+        $this->upload->initialize($config);
+        if (!empty($_FILES['image']['name'])) {
+            if ($this->upload->do_upload('image')) {
+                $this->upload->data();
+                $data = [
+                    'photo' => $_FILES['image']['name']
+                ];
+                $this->db->where('id_user', $id);
+                $this->db->update('tb_user', $data);
+                return $this->db->affected_rows();
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:alba_ta/pages/menu_page.dart';
 import 'package:alba_ta/pages/huruf.dart';
 import 'package:alba_ta/pages/praktek.dart';
+import 'package:alba_ta/pages/profil.dart';
 import 'package:alba_ta/pages/quiz.dart';
 import 'package:alba_ta/pages/info.dart';
 import 'package:alba_ta/pages/quotes.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           '/Home': (BuildContext context) => new MyHomePage(),
           '/Huruf': (BuildContext context) => new Huruf(),
           '/Praktek': (BuildContext context) => new Praktek(),
+          '/Profil': (BuildContext context) => new Profil(),
           '/Quiz': (BuildContext context) => new Quiz(),
           '/Info': (BuildContext context) => new Info(),
           '/Quotes': (BuildContext context) => new Quotes(),

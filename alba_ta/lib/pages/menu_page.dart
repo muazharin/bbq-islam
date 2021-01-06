@@ -1,3 +1,4 @@
+// import 'package:alba_ta/model/baseurl.dart';
 import 'package:flutter/material.dart';
 import 'package:alba_ta/model/login_option.dart';
 import 'package:alba_ta/pages/login.dart';
@@ -31,7 +32,7 @@ class _MenuPageState extends State<MenuPage> {
 
   Widget _showAlert(String message) {
     return AlertDialog(
-      title: Text('Keluar?'),
+      title: Text('Konfirmasi'),
       content: Text(message),
       actions: <Widget>[
         FlatButton(
@@ -139,6 +140,9 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
+  // String username = '';
+  // String id = '';
+  // String key = '';
   logout() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     setState(() {
@@ -149,6 +153,7 @@ class _MenuPageState extends State<MenuPage> {
       sp.setString('email', null);
       sp.setString('number', null);
       sp.setString('key', null);
+      // Baseurl.user = Baseurl.ip + "/api/user";
     });
   }
 
@@ -156,6 +161,10 @@ class _MenuPageState extends State<MenuPage> {
   getPref() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     setState(() {
+      // username = sp.getString('username');
+      // id = sp.getString('id');
+      // key = sp.getString('key');
+      // Baseurl.user = Baseurl.user + '?BBQ-KEY=' + key + '&id=' + id;
       value = sp.getInt('value');
       log = value == 1 ? LoginStatus.isSignIn : LoginStatus.isSignOut;
     });
@@ -180,6 +189,9 @@ class _MenuPageState extends State<MenuPage> {
     String quiz = 'Quiz';
     String info = 'Info';
     String quotes = 'Quotes';
+    String profil = 'Profil';
+    // print(username);
+    // print(Baseurl.user);
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -218,6 +230,12 @@ class _MenuPageState extends State<MenuPage> {
                   _buildMenuCard(quiz, width, context),
                   _buildMenuCard(quotes, width, context),
                   _buildMenuCard(info, width, context),
+                  Visibility(
+                    child: Hero(
+                        tag: 'photo',
+                        child: _buildMenuCard(profil, width, context)),
+                    visible: log == LoginStatus.isSignOut ? false : true,
+                  )
                 ],
               ),
             ),

@@ -22,8 +22,11 @@ dependencies:
   splashscreen:
   audioplayer:
   http:
+  photo_view:
+  image_picker:
   path_provider:
   shared_preferences:
+  image:
   # flutter_volume: ^0.0.2
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +54,7 @@ flutter:
     - assets/image/login.png
     - assets/image/Huruf.png
     - assets/image/Praktek.png
+    - assets/image/Profil.png
     - assets/image/Quiz.png
     - assets/image/Quotes.png
     - assets/image/Info.png

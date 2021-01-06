@@ -15,9 +15,15 @@ class _DaftarPageState extends State<DaftarPage> {
   String _password = '';
   String _email = '';
   String _phone = '';
+  String _jk = '';
   final _key = new GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _validate = false;
+  void _pilihJk(String val) {
+    setState(() {
+      _jk = val;
+    });
+  }
 
   Widget _buildTopCard(double width, double height) {
     return Container(
@@ -67,13 +73,15 @@ class _DaftarPageState extends State<DaftarPage> {
     daftar() async {
       if (_key.currentState.validate()) {
         _key.currentState.save();
-        final response = await http.post(Baseurl.userdaftar, body: {
+        final response = await http.post(Baseurl.user, body: {
           'BBQ-KEY': 'cumabuatdaftar',
           'username': _username,
           'password': _password,
           'email': _email,
           'number': _phone,
+          'gender': _jk,
         });
+        print(_jk);
         var result = jsonDecode(response.body);
         bool status = result['status'];
         String message = result['message'];
@@ -98,11 +106,6 @@ class _DaftarPageState extends State<DaftarPage> {
               autovalidate: _validate,
               child: Column(
                 children: <Widget>[
-                  Image.asset(
-                    'assets/image/account.png',
-                    width: width / 5,
-                    color: Colors.blue[300],
-                  ),
                   SizedBox(
                     height: 16.0,
                   ),
@@ -150,6 +153,20 @@ class _DaftarPageState extends State<DaftarPage> {
                   SizedBox(
                     height: 16.0,
                   ),
+                  RadioListTile(
+                      title: Text("Laki-laki"),
+                      value: "Laki-laki",
+                      groupValue: _jk,
+                      onChanged: (String val) {
+                        _pilihJk(val);
+                      }),
+                  RadioListTile(
+                      title: Text("Perempuan"),
+                      value: "Perempuan",
+                      groupValue: _jk,
+                      onChanged: (String val) {
+                        _pilihJk(val);
+                      }),
                   InkWell(
                     onTap: daftar,
                     child: Container(

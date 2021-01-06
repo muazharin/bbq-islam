@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _showAlert(String message) {
     return AlertDialog(
-      title: Text('Peringatan!'),
+      title: Text('Kesalahan'),
       content: Text(message),
       actions: <Widget>[
         FlatButton(
@@ -125,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                   Image.asset(
                     'assets/image/account.png',
                     width: width / 5,
-                    color: Colors.blue[300],
                   ),
                   SizedBox(
                     height: 16.0,

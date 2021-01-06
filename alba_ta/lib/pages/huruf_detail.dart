@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
 import 'package:alba_ta/model/audio_provider.dart';
-// import 'package:flutter_volume/flutter_volume.dart';
+import 'package:alba_ta/pages/template/background.dart';
 
 class HurufDetail extends StatefulWidget {
   final String huruf;
@@ -18,52 +18,6 @@ class HurufDetail extends StatefulWidget {
   @override
   _HurufDetailState createState() => _HurufDetailState(
       this.huruf, this.a, this.b, this.c, this.d, this.e, this.f, this.g);
-}
-
-Widget _text(String text) {
-  return Text(text, style: TextStyle(color: Colors.white));
-}
-
-Widget _backGr(double width, double height, BuildContext context) {
-  return Container(
-    width: width,
-    height: height / 2.5,
-    decoration: BoxDecoration(
-        color: Color(0xFF00a5b3),
-        image: DecorationImage(
-            image: ExactAssetImage('assets/image/bcislam.jpg'),
-            fit: BoxFit.cover)),
-    child: Padding(
-      padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Column(
-        children: <Widget>[
-          Spacer(),
-          Row(
-            children: <Widget>[
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Center(
-                  child: Row(
-                    children: <Widget>[
-                      _text('Copyright '),
-                      Icon(
-                        Icons.copyright,
-                        color: Colors.white,
-                      ),
-                      _text(' 2020 by '),
-                      _text('Muaz_Dev '),
-                    ],
-                  ),
-                ),
-              ),
-              Spacer()
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
 }
 
 Widget _visible(_visO, String text, double width) {
@@ -151,7 +105,7 @@ class _HurufDetailState extends State<HurufDetail> {
         children: <Widget>[
           Align(
             alignment: Alignment.bottomCenter,
-            child: _backGr(width, height, context),
+            child: backGr(width, height, context),
           ),
           Container(
             width: width,
